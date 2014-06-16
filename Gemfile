@@ -11,6 +11,9 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+gem 'haml'
+gem 'devise'
+gem 'mechanize'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -44,4 +47,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'rb-fsevent' if `uname` =~ /Darwin/
+  gem 'factory_girl_rails'
+  gem 'factory_girl_sequences', :group => :test
 end
