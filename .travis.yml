@@ -4,3 +4,5 @@ rvm:
 cache: bundler
 before_script:
   - mysql -e 'create database markie_test;'
+notifications:
+  email: false
