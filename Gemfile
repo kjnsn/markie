@@ -47,7 +47,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails'
-  gem 'factory_girl_sequences', :group => :test
+  gem 'faker'
 end
 
 gem 'rb-fsevent', require: false
