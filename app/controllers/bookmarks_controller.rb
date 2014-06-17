@@ -58,7 +58,7 @@ class BookmarksController < ApplicationController
         format.html { redirect_to @bookmark, notice: 'Bookmark was successfully updated.' }
         format.json { render :show, status: :ok, location: @bookmark }
       else
-        format.html { render :edit }
+        format.html { redirect_to bookmarks_url, notice: 'Bookmark not found.' }
         format.json { render json: @bookmark.errors, status: :unprocessable_entity }
       end
     end
@@ -67,17 +67,25 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.json
   def destroy
-    @bookmark.destroy
-    respond_to do |format|
-      format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
-      format.json { head :no_content }
+    ::Kernel.print @bookmark
+    if @bookmark
+      @bookmark.destroy
+      respond_to do |format|
+        format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to bookmarks_url, notice: 'Bookmark not found.' }
+        format.json { render json: {:error => "Bookmark not found"}, status: :unprocessable_entity }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
+      @bookmark = Bookmark.where(:id => params[:id], :user_id => current_user.id).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
